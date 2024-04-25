@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+  
+    table, th, td {
+      border: 1px solid black;
+      padding: 7px; 
+      text-align: center; 
+    }
+  
+    td {
+      width: 25%; 
+      height: 0;
+      padding-bottom: 25%; 
+      position: relative;
+    }
+  
+    td > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto; /* Centering content */
+    }
+  </style>
+</html>
