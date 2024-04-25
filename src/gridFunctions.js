@@ -80,5 +80,10 @@ export function shortestPath(sx, sy, dx, dy, grid) {
 
 export  function colorGridCells(sx,sy,dx,dy,n,m,data){
     let grid = makeGridForShortestPath(n,m,data)
-    return shortestPath(sx,sy,dx,dy,grid)
+    let arr = shortestPath(sx,sy,dx,dy,grid)
+    let st = new Set()
+    for (let i=0;i<arr.length;i++){
+        st.add(`${arr[i].x},${arr[i].y}`)
+    }
+    return st
 }

@@ -5,6 +5,6 @@ x,y,angle,tag,obstacle
 0,1,90,d2dw,1
 0,2,90,fe2w1,0
 1,1,90,fe4e3,0
-1,2,0,r3e2e,1
-2,1,0,fiao8,0
+1,2,0,r3e2e,0
+2,1,0,fiao8,1
 2,2,0,jfio8,0

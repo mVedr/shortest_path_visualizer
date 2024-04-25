@@ -12,6 +12,7 @@ function App() {
   const [dx,setDx] = useState(-1)
   const [dy,setDy] = useState(-1)
   const [sh, setSh] = useState(new Set())
+ // const [taskQ,setTaskQ] = useState([])
 
   useEffect(() => {
     Papa.parse("/data.csv", {
@@ -63,7 +64,7 @@ function App() {
       }></input>
       <br /><br />
       <button onClick={()=> {
-        setSh(new Set(colorGridCells(sx,sy,dx,dy,dims.n+1,dims.m+1,data)))
+        setSh(colorGridCells(sx,sy,dx,dy,dims.n+1,dims.m+1,data))
       }}>Start Travel</button>
     </div>
   );
