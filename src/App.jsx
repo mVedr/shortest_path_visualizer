@@ -1,8 +1,10 @@
 import Papa from "papaparse";
 import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 import "./App.css";
 import QrTable from "./QrTable";
 import { colorGridCells } from "./gridFunctions";
+const socket = io("http://localhost:3003", { transports: ['websocket', 'polling', 'flashsocket'] } )
 
 function App() {
   const [data, setData] = useState([]);
@@ -13,6 +15,7 @@ function App() {
   const [dy,setDy] = useState(-1)
   const [sh, setSh] = useState(new Set())
  // const [taskQ,setTaskQ] = useState([])
+  const [curr,setCurr] = useState({})
 
   useEffect(() => {
     Papa.parse("/data.csv", {
@@ -43,12 +46,16 @@ function App() {
   }, [data]);
 
   useEffect(()=>{
-    console.log(sh)
-  },[sh])
+    socket.on("coordinates",(data)=>{
+      setCurr(data)
+      console.log(data)
+    })
+  },[socket])
 
   return (
     <div>
-      <QrTable n={dims.n+1} m={dims.m+1} data={data} sh={sh} />
+      <QrTable n={dims.n+1} m={dims.m+1} data={data} sh={sh} curr={curr} sx={sx} sy={sy} dx={dx}
+      dy = {dy} />
       <input type="number" value={sx} placeholder="sx" onChange={
         (e) => setSx(parseInt(e.target.value))
       } ></input>
