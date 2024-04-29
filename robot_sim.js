@@ -5,13 +5,13 @@ const socket = io("ws://localhost:3003");
 socket.on("start", (arg) => {
   const path = arg; 
   console.log(path)
-  for (let i = 0; i < path.length; i++) {
+  path.forEach((point, index) => {
     setTimeout(function () {
-        console.log("reached : ", path[i]);
-        socket.emit("coordinates",path[i])
-        if (i==path.length-1){
-            socket.emit("end",{})
-        }
-    }, i * 3500);
-  }
+      console.log("reached : ", point);
+      socket.emit("coordinates", point);
+      if (index === path.length - 1) {
+        socket.emit("endS", {});
+      }
+    }, index * 3500);
+  });
 });

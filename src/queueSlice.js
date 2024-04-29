@@ -11,7 +11,7 @@ export const queueSlice = createSlice({
         addJourney: (state,action) => {
             //Some bug is causing 2 elements to be removed so adding 2 same
             //elements at once
-            state.tasks.push(action.payload,action.payload)
+            state.tasks.push(action.payload,)
         },
         removeJourney: (state) => {
             if (state.tasks.length>0){

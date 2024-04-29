@@ -1,6 +1,8 @@
 import Papa from "papaparse";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { io } from "socket.io-client";
 import AddTask from "./AddTask";
 import "./App.css";
@@ -64,6 +66,7 @@ function App() {
 
     socket.on("end", (_) => {
       dispatch(removeJourney());
+      toast.success("Task Completed")
       setCurrState(false);
     });
   }, [socket]);
@@ -156,6 +159,7 @@ function App() {
 
   return (
     <div>
+      <ToastContainer />
       <QrTable
         n={dims.n + 1}
         m={dims.m + 1}

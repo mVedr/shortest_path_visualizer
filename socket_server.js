@@ -16,7 +16,7 @@ io.on("connection", (socket) => {
     socket.on("start",(arg)=>{
         io.emit("start" ,arg)
     });
-    socket.on("end",(arg)=>{
+    socket.on("endS",(arg)=>{
         io.emit("end",arg)
     });
 });
