@@ -70,7 +70,6 @@ export function shortestPath(sx, sy, dx, dy, grid) {
   return ans.reverse();
 }
 
-// console.log("Hello JavaScript");
 // const path = shortestPath(0, 0, 2, 2, [
 //     [0, 0, 1],
 //     [0, 1, 0],
@@ -79,7 +78,6 @@ export function shortestPath(sx, sy, dx, dy, grid) {
 // console.log(path);
 
 //o/p
-// Hello JavaScript
 // [
 //   { x: 0, y: 0 },
 //   { x: 1, y: 0 },

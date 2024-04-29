@@ -13,4 +13,10 @@ io.on("connection", (socket) => {
         console.log(arg);
         io.emit("coordinates", arg);
     });
+    socket.on("start",(arg)=>{
+        io.emit("start" ,arg)
+    });
+    socket.on("end",(arg)=>{
+        io.emit("end",arg)
+    });
 });

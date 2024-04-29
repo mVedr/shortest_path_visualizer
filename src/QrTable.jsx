@@ -21,13 +21,13 @@ function QrTable({sx,sy, dx, dy, n, m, data, sh, curr }) {
           } else if ((i == dx && j == dy)||(i== sx && j==sy)) {
             if (curr.x === i && curr.y === j) {
               cells.push(
-                <td key={j} style={{ backgroundColor: "blue" }}>
+                <td key={j} style={{ backgroundColor: "green" }}>
                   {data[pos].tag} <b>*</b>
                 </td>
               );
             } else {
               cells.push(
-                <td key={j} style={{ backgroundColor: "blue" }}>
+                <td key={j} style={{ backgroundColor: "green" }}>
                   {data[pos].tag}{" "}
                 </td>
               );
@@ -49,13 +49,13 @@ function QrTable({sx,sy, dx, dy, n, m, data, sh, curr }) {
           if ((i == dx && j == dy)||(i== sx && j==sy)) {
             if (curr.x === i && curr.y === j) {
               cells.push(
-                <td key={j} style={{ backgroundColor: "blue" }}>
+                <td key={j} style={{ backgroundColor: "green" }}>
                   {data[pos].tag} <b>*</b>
                 </td>
               );
             } else {
               cells.push(
-                <td key={j} style={{ backgroundColor: "blue" }}>
+                <td key={j} style={{ backgroundColor: "green" }}>
                   {data[pos].tag}{" "}
                 </td>
               );
