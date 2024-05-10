@@ -95,7 +95,7 @@ function App() {
             dims.n + 1,
             dims.m + 1,
             data
-          )
+          ),data,0
         );
         //console.log("s2: ",sp)
         socket.emit("start", sp);
@@ -138,7 +138,8 @@ function App() {
             dims.n + 1,
             dims.m + 1,
             data
-          )
+          ),
+          data,0
         );
         //console.log("s2: ",sp)
         socket.emit("start", sp);
@@ -171,23 +172,6 @@ function App() {
         dx={dx}
         dy={dy}
       />
-      {/* <input type="number" value={sx} placeholder="sx" onChange={
-        (e) => setSx(parseInt(e.target.value))
-      } ></input>
-      <input type="number" value={sy} placeholder="sy" onChange={
-        (e) => setSy(parseInt(e.target.value))
-      } ></input>
-      <br /><br />
-      <input type="number" value={dx} placeholder="dx" onChange={
-        (e) => setDx(parseInt(e.target.value))
-      } ></input>
-      <input type="number" value={dy} placeholder="dy" onChange={
-        (e) => setDy(parseInt(e.target.value))
-      }></input> */}
-      {/* <br /><br />
-      <button onClick={()=> {
-        setSh(colorGridCells(sx,sy,dx,dy,dims.n+1,dims.m+1,data))
-      }}>Start Travel</button> */}
       <AddTask />
     </div>
   );

@@ -22,7 +22,7 @@ export function makeGridForShortestPath(sx, sy, dx, dy, n, m, data) {
   return grid;
 }
 
-export function shortestPath(sx, sy, dx, dy, grid,currForward) {
+export function shortestPath(sx, sy, dx, dy, grid,data,currForward) {
   const xd = [1, -1, 0, 0];
   const yd = [0, 0, 1, -1];
 
@@ -63,6 +63,7 @@ export function shortestPath(sx, sy, dx, dy, grid,currForward) {
   const ans = [];
   let curr = { x: dx, y: dy };
   while (curr.x !== -1 && curr.y !== -1) {
+    curr = {x:curr.x,y:curr.y,tag:data[n * curr.x + curr.y].tag}
     ans.push(curr);
     curr = prev[`${curr.x},${curr.y}`];
   }
@@ -80,24 +81,16 @@ export function shortestPath(sx, sy, dx, dy, grid,currForward) {
   return path;
 }
 
-const path = shortestPath(0, 0, 2, 2, [
-    [0, 0, 1],
-    [0, 1, 0],
-    [0, 0, 0]
-],0);
-console.log(path);
-
-// [
-//   { x: 0, y: 0 },
-//   { x: 1, y: 0 },
-//   { x: 2, y: 0 },
-//   { x: 2, y: 1 },
-//   { x: 2, y: 2 }
-// ]
+// const path = shortestPath(0, 0, 2, 2, [
+//     [0, 0, 1],
+//     [0, 1, 0],
+//     [0, 0, 0]
+// ],0);
+// console.log(path);
 
 export function colorGridCells(sx, sy, dx, dy, n, m, data) {
   let grid = makeGridForShortestPath(sx, sy, dx, dy, n, m, data);
-  let arr = shortestPath(sx, sy, dx, dy, grid);
+  let arr = shortestPath(sx, sy, dx, dy, grid,data,n);
   let st = new Set();
   for (let i = 0; i < arr.length; i++) {
     st.add(`${arr[i].x},${arr[i].y}`);
