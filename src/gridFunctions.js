@@ -22,7 +22,7 @@ export function makeGridForShortestPath(sx, sy, dx, dy, n, m, data) {
   return grid;
 }
 
-export function shortestPath(sx, sy, dx, dy, grid) {
+export function shortestPath(sx, sy, dx, dy, grid,currForward) {
   const xd = [1, -1, 0, 0];
   const yd = [0, 0, 1, -1];
 
@@ -66,18 +66,27 @@ export function shortestPath(sx, sy, dx, dy, grid) {
     ans.push(curr);
     curr = prev[`${curr.x},${curr.y}`];
   }
-
-  return ans.reverse();
+  const path = ans.reverse();
+  const fa = directions(path,currForward)
+  for (let i=0;i < path.length;i++){
+    if(i==path.length-1){
+      path[i].dir = -1
+      path[i].fwd = fa[1][i]
+    }else{
+      path[i].dir = fa[0][i]
+      path[i].fwd = fa[1][i]
+    }
+  }
+  return path;
 }
 
-// const path = shortestPath(0, 0, 2, 2, [
-//     [0, 0, 1],
-//     [0, 1, 0],
-//     [0, 0, 0]
-// ]);
-// console.log(path);
+const path = shortestPath(0, 0, 2, 2, [
+    [0, 0, 1],
+    [0, 1, 0],
+    [0, 0, 0]
+],0);
+console.log(path);
 
-//o/p
 // [
 //   { x: 0, y: 0 },
 //   { x: 1, y: 0 },
@@ -94,4 +103,70 @@ export function colorGridCells(sx, sy, dx, dy, n, m, data) {
     st.add(`${arr[i].x},${arr[i].y}`);
   }
   return st;
+}
+
+export function directions(path, currForward) {
+  // console.log("currForward: ", currForward);
+  let dirs = [];
+  let fwds = []
+  fwds.push(currForward)
+  for (let i = 0; i < path.length - 1; i++) {
+    // console.log("currForward: ", currForward);
+    // console.log("p1: ", path[i], " p2: ", path[i + 1]);
+    if (path[i].x > path[i + 1].x) {
+      //up
+      if (currForward == 0) {
+        dirs.push(3);
+      } else if (currForward == 1) {
+        dirs.push(1);
+      } else if (currForward == 2) {
+        //go in same direction
+        dirs.push(0);
+      } else if (currForward == 3) {
+        dirs.push(2);
+      }
+      currForward = 2;
+    } else if (path[i].x < path[i + 1].x) {
+      //down
+      if (currForward == 0) {
+        //go in same direction
+        dirs.push(0);
+      } else if (currForward == 1) {
+        dirs.push(2);
+      } else if (currForward == 2) {
+        dirs.push(3);
+      } else if (currForward == 3) {
+        dirs.push(1);
+      }
+      currForward = 0;
+    } else if (path[i].y > path[i + 1].y) {
+      //left
+      if (currForward == 0) {
+        dirs.push(2);
+      } else if (currForward == 1) {
+        dirs.push(3);
+      } else if (currForward == 2) {
+        dirs.push(1);
+      } else if (currForward == 3) {
+        //go in same direction
+        dirs.push(0);
+      }
+      currForward = 3;
+    } else if (path[i].y < path[i + 1].y) {
+      //right
+      if (currForward == 0) {
+        dirs.push(1);
+      } else if (currForward == 1) {
+        //go in same direction
+        dirs.push(0);
+      } else if (currForward == 2) {
+        dirs.push(2);
+      } else if (currForward == 3) {
+        dirs.push(3);
+      }
+      currForward = 1;
+    }
+    fwds.push(currForward)
+  }
+  return [dirs,fwds]
 }

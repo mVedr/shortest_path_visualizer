@@ -5,6 +5,8 @@ const socket = io("ws://localhost:3003");
 socket.on("start", (arg) => {
   const path = arg; 
   console.log(path)
+
+  //Simulation
   path.forEach((point, index) => {
     setTimeout(function () {
       console.log("reached : ", point);
@@ -13,5 +15,13 @@ socket.on("start", (arg) => {
         socket.emit("endS", {});
       }
     }, index * 3500);
+
+    //Real Script
+    /*
+      for v in path:
+        if robotGoFromP1ToP2(v[i],v[i+1]).then(
+          socket.emit("reached",*)
+        )
+    */
   });
 });
