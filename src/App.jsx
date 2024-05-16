@@ -1,8 +1,9 @@
+import axios from "axios";
 import Papa from "papaparse";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { io } from "socket.io-client";
 import AddTask from "./AddTask";
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
   const [dx, setDx] = useState(-1);
   const [dy, setDy] = useState(-1);
   const [sh, setSh] = useState(new Set());
+  const [currForward, setCurrForward] = useState(0);
   // const [taskQ,setTaskQ] = useState([])
   const [curr, setCurr] = useState({});
   const val = useSelector((state) => state.tasks).tasks;
@@ -35,10 +37,22 @@ function App() {
       download: true,
       complete: (result) => {
         setData(result.data);
-        // console.log(result.data);
+        //console.log(result.data);
       },
       header: true,
     });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/currentForward/`)
+      .then((data) => {
+        setCurrForward(parseInt(data.data));
+        //console.log("API data: ", data.data);
+      })
+      .catch((err) => {
+        console.log("API error: ", err);
+      });
   }, []);
 
   useEffect(() => {
@@ -61,12 +75,13 @@ function App() {
   useEffect(() => {
     socket.on("coordinates", (data) => {
       setCurr(data);
-      console.log(data);
+      //console.log(data);
     });
 
-    socket.on("end", (_) => {
+    socket.on("end", (data) => {
+      setCurrForward(parseInt(data))
       dispatch(removeJourney());
-      toast.success("Task Completed")
+      toast.success("Task Completed");
       setCurrState(false);
     });
   }, [socket]);
@@ -76,8 +91,8 @@ function App() {
     if (!currState) {
       if (val.length > 0) {
         setCurrState(true);
-        console.log(val[0]);
-        console.log(val[0].sx, val[0].sy, val[0].dx, val[0].dy);
+        // console.log(val[0]);
+        // console.log(val[0].sx, val[0].sy, val[0].dx, val[0].dy);
         setSx(val[0].sx);
         setSy(val[0].sy);
         setDx(val[0].dx);
@@ -95,7 +110,9 @@ function App() {
             dims.n + 1,
             dims.m + 1,
             data
-          ),data,0
+          ),
+          data,
+          currForward
         );
         //console.log("s2: ",sp)
         socket.emit("start", sp);
@@ -115,12 +132,12 @@ function App() {
   }, [currState]);
 
   useEffect(() => {
-    console.log("change in reduxtk : ", JSON.stringify(val));
+    // console.log("change in reduxtk : ", JSON.stringify(val));
     if (!currState) {
       if (val.length > 0) {
         setCurrState(true);
-        console.log(val[0]);
-        console.log(val[0].sx, val[0].sy, val[0].dx, val[0].dy);
+        //  console.log(val[0]);
+        // console.log(val[0].sx, val[0].sy, val[0].dx, val[0].dy);
         setSx(val[0].sx);
         setSy(val[0].sy);
         setDx(val[0].dx);
@@ -139,7 +156,8 @@ function App() {
             dims.m + 1,
             data
           ),
-          data,0
+          data,
+          currForward
         );
         //console.log("s2: ",sp)
         socket.emit("start", sp);
