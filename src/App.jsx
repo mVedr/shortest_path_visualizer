@@ -79,8 +79,8 @@ function App() {
     });
 
     socket.on("end", (data) => {
-      setCurrForward(parseInt(data.fwd))
-      console.log("new forward: ",parseInt(data.fwd))
+      setCurrForward(parseInt(data))
+      console.log("new forward: ",parseInt(data))
       dispatch(removeJourney());
       toast.success("Task Completed");
       setCurrState(false);
