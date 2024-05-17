@@ -12,7 +12,8 @@ socket.on("start", (arg) => {
       console.log("reached : ", point);
       socket.emit("coordinates", point);
       if (index === path.length - 1) {
-        socket.emit("endS", {});
+        console.log(point)
+        socket.emit("endS", point);
       }
     }, index * 3500);
 

@@ -47,8 +47,8 @@ function App() {
     axios
       .get(`http://localhost:8000/currentForward/`)
       .then((data) => {
-        setCurrForward(parseInt(data.data));
-        //console.log("API data: ", data.data);
+        setCurrForward(parseInt(data.data.data));
+        console.log("API data: ", data.data.data);
       })
       .catch((err) => {
         console.log("API error: ", err);
@@ -79,7 +79,8 @@ function App() {
     });
 
     socket.on("end", (data) => {
-      setCurrForward(parseInt(data))
+      setCurrForward(parseInt(data.fwd))
+      console.log("new forward: ",parseInt(data.fwd))
       dispatch(removeJourney());
       toast.success("Task Completed");
       setCurrState(false);
