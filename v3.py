@@ -10,10 +10,8 @@ from std_msgs.msg import Float32, Float64, String
 
 r = redis.Redis(host='localhost',port=6379,)
 
-# Initialize ROS node
 rospy.init_node('cmd_vel_publisher')
 
-# Define the publisher for cmd_vel topic
 pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
 
 sio = socketio.Client()
@@ -123,19 +121,13 @@ def start(arg):
 
 
 def main():
-
-    # Define the subscriber for CombinedTagData topic
     sub1 = rospy.Subscriber('qrCode', String, combined_tag_callback, queue_size=10)
 
     sub2 = rospy.Subscriber('angle',Float32, direction, queue_size=10)
 
-    # Define the Twist message
     twist_msg = Twist()
 
-    #rospy.spin()
-
-    # Set the publishing rate
-    rate = rospy.Rate(10)  # Adjust the publishing rate as needed
+    rate = rospy.Rate(10)  
 
     while not rospy.is_shutdown():
         rate.sleep()
@@ -207,9 +199,6 @@ def NotCallBackDirectionFunction():
                 twist_msg.angular.z =-1.8
                 if rosAngle > 0.0 and rosAngle < 90.0:
                     if ignoreFunc(rosAngle=rosAngle)==False:
-                        
-                    # if rosAngle == 2.0:
-                    #     return
                         moveToOrigin = False
                    # return
             else:
@@ -272,23 +261,14 @@ def NotCallBackDirectionFunction():
                 else:
                     twist_msg.angular.z = 0
                     twist_msg.linear.x = 0.3
-
-
-    # Publish the Twist message
     pub.publish(twist_msg)
 
 
-def reached_target_point(point):
-    # Check if the robot has reached the target point
-    # You need to implement this based on your robot's feedback mechanism
-    # For example, you might check if the robot's current position matches the target point
-    # Return True if the robot has reached the target point, otherwise return False
-    return False
 
 
 sio.connect('http://localhost:3003')
 
-sio.wait()  # Keep the WebSocket connection alive and listening
+sio.wait()  
 
 if __name__ == '_main_':
     try:
