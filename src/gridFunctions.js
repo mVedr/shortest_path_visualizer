@@ -12,7 +12,7 @@ export function makeGridForShortestPath(sx, sy, dx, dy, n, m, data) {
       vis[i][j] = false;
       if ((i == sx && j == sy) || (i == dx && j == dy)) {
         grid[i][j] = 0;
-      } else if (data[n * i + j].obstacle === "1") {
+      } else if (data[m * i + j].obstacle === "1") {
         grid[i][j] = 1;
       } else {
         grid[i][j] = 0;
@@ -63,7 +63,8 @@ export function shortestPath(sx, sy, dx, dy, grid,data,currForward) {
   const ans = [];
   let curr = { x: dx, y: dy };
   while (curr.x !== -1 && curr.y !== -1) {
-    curr = {x:curr.x,y:curr.y,tag:data[n * curr.x + curr.y].tag}
+    console.log("currx,curry,tag :" + curr.x + ","+curr.y+","+data[m * curr.x + curr.y].tag+" pos: "+(m * curr.x + curr.y))
+    curr = {x:curr.x,y:curr.y,tag:data[m * curr.x + curr.y].tag}
     ans.push(curr);
     curr = prev[`${curr.x},${curr.y}`];
   }
