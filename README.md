@@ -5,6 +5,7 @@ https://github.com/mVedr/shortest_path_visualizer/assets/94962003/3a08f02d-c6f2-
 <h2>Techologies Used</h2>
 <ul>
   <li>ReactJS</li>
+  <li>NodeJS</li>
   <li>SocketIO</li>
   <li>Redis</li>
   <li>Python</li>
